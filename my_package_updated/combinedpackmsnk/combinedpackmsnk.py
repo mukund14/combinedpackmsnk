@@ -103,7 +103,7 @@ def func(file_loc, header_row_number=0):
     id_col = input(' If there is an ID column you would like to exclude from analysis, please specify the ID column: If not, press Enter')
 
     if id_col in df.columns:
-        X = df.drop([target, 'Site', 'season', 'year'], axis=1).drop(id_col, axis=1)
+        X = df.drop([target], axis=1).drop(id_col, axis=1)
         y = df[target]
     else:
         X = df.drop(target, axis=1)
