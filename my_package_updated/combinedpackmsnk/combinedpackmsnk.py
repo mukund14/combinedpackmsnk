@@ -35,6 +35,9 @@ def func(file_loc, header_row_number=0):
     # Identify categorical and continuous variables
     categorical_vars = df.select_dtypes(include=['object']).columns
     continuous_vars = df.select_dtypes(exclude=['object']).columns
+    # Encode categorical variables
+    for col in categorical_vars:
+        df[col] = LabelEncoder().fit_transform(df[col])
 
     # Check for missing values in each column
     missing_values = df.isnull().sum()
@@ -60,9 +63,7 @@ def func(file_loc, header_row_number=0):
         fig = px.histogram(df, x=col, title=f'Count of Each Category in {col}')
         fig.show()
 
-    # Encode categorical variables
-    for col in categorical_vars:
-        df[col] = LabelEncoder().fit_transform(df[col])
+
 
     # Correlation heatmap
     correlation_matrix = df.corr()
